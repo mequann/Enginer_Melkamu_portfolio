@@ -28,9 +28,9 @@ export default function HomePage() {
 
       {/* Content */}
       <div className="relative z-10 text-white">
-        <h1 className="text-4xl font-bold">Welcome to My Portfolio</h1>
+        <h1 className="text-4xl font-bold">Welcome to  Melkamu's Portfolio</h1>
         <p className="text-lg mt-4 text-gray-200">{text}</p>
-        <p className="mt-6 text-xl">Explore my projects and skills below!</p>
+        <p className="mt-6 text-xl">Explore my projects and skills on this website!</p>
       </div>
     </section>
   );
