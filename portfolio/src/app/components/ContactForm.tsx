@@ -1,30 +1,49 @@
 'use client';
 import { useState, FormEvent } from "react";
+import axios from "axios"
 
 const ContactForm: React.FC = () => {
   // State for form fields
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+ // State for form fields
+ const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  message: '',
+});
 
-  // Handle input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [id]: value
-    }));
-  };
+// Handle input change
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const { id, value } = e.target;
+  setFormData((prevState) => ({
+    ...prevState,
+    [id]: value,
+  }));
+};
 
-  // Handle form submit
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // You can add your form submission logic here (e.g., sending data to an API)
-    console.log(formData);
-  };
+// Handle form submit
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
 
+  try {
+    const response = await axios.post('/api/sendEmail',formData, {
+      // method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // body: JSON.stringify(formData),
+    });
+
+    if (response.status === 200) {
+      alert('Message sent successfully!');
+      setFormData({ name: '', email: '', message: '' }); // Reset form after submission
+    } else {
+      alert('Failed to send message.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred while sending the message.');
+  }
+};
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
